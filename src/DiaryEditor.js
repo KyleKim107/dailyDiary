@@ -4,10 +4,19 @@ const DiaryEditor = () =>{
     const [state, setState] = useState({ // setState들을 하나로 묶는다
         author:"",
         content:"",
+        emotion: 1,
     });
     const  handleChangeState = (e) =>{
         console.log(e.target.name);
         console.log(e.target.value);
+        setState({
+            ...state,
+            [e.target.name]: e.target.value,
+        })
+    }
+    const handleSubmit = () => {
+        console.log(state);
+        alert("저장성공");
     }
 
     return (
@@ -17,27 +26,31 @@ const DiaryEditor = () =>{
             <input 
             name = "author"
             value={state.author}
-            onChange={(e) => { //값이 바뀌었을때 전달되는 event객체
-                setState({
-                    //State는 두개의 값,content와 author,을 가지고 있기 때문에 한번 설정해 줄때 두가지를 한번에 설정해 줘야한다.
-                    //하지만 ...state를 해주면 알아서 펼쳐준다.
-                    ...state,
-                    author: e.target.value,
-                })
-            }}
+            onChange={handleChangeState}
             />
         </div>
         <div>
             <textarea 
+                name="content"
                 value={state.content} 
-                onChange={(e) => { //값이 바뀌었을때 전달되는 event객체
-                    setState({
-                        ...state,
-                        content: e.target.value,
-                    })
-                }
-            }
+                onChange={handleChangeState}
             />
+        </div>
+        <div>
+            <select 
+            name ="emotion"
+            value={state.author.emotion}
+            onChange={handleChangeState}
+            >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            </select>
+        </div>
+        <div>
+            <button onClick={handleSubmit}>일기 저장하기</button>
         </div>
     </div>
     );
