@@ -21,10 +21,18 @@ function App() {
     setData([newItem , ...data]); // 만약 추가한걸 가장 위에 두고 싶은 경우
     // setData([ ...data , newItem ]); 만약 추가한걸 가장 밑에 두고 싶은 경우
   }
+
+  const onDelete = ({targetId}) => {
+    console.log(`${targetId}가 삭제되었습니다.`);
+    const newDiaryList = data.filter((it) => it.id !== targetId);
+    console.log(newDiaryList);
+    setData(newDiaryList);
+  }
+
   return (
     <div className="App">
       <DiaryEditor onCreate = {onCreate} />
-      <DiaryList diaryList={data} />
+      <DiaryList diaryList={data} onDelete = {onDelete} />
     </div>
   );
 }
