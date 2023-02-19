@@ -7,7 +7,7 @@ const DiaryList = ({diaryList}) =>{
             <h4>{diaryList.length}개의 일기가 있습니다.</h4>
             <div>
                 {diaryList.map( (it) => (
-                    <DiaryItem key={it.id} {...it} /> // {...it}으로 모든 값들을 보낸다. ex> {id,author , content, created_date , emotion}
+                    <DiaryItem key={it.id} {...it} /> // {...it}으로  모든 값들을 보낸다. ex> {id,author , content, created_date , emotion}
                     
                 ))}
             </div>

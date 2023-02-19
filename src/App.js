@@ -1,50 +1,30 @@
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
-
-const dummyList = [
-  {
-    id:1,
-    author: "김대호",
-    content: "h2",
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-  {
-    id:2,
-    author: "김재원",
-    content: "h2",
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-  {
-    id:3,
-    author: "이옥자",
-    content: "h2",
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-  {
-    id:4,
-    author: "김영수",
-    content: "h2",
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-  {
-    id:5,
-    author: "김예슬",
-    content: "h2",
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-]
+import { useState, useRef } from 'react';
 
 function App() {
+  const [data , setData] = useState([]);
+
+  const dataId = useRef(0); // 0번 인덱스 부 시작한다.
+  
+  const onCreate = (author, content, emotion) => {
+    const created_date = new Date().getTime();
+    const newItem = {
+      author,
+      content,
+      emotion,
+      created_date,
+      id: dataId.current,
+    };
+    dataId.current += 1;
+    setData([newItem , ...data]); // 만약 추가한걸 가장 위에 두고 싶은 경우
+    // setData([ ...data , newItem ]); 만약 추가한걸 가장 밑에 두고 싶은 경우
+  }
   return (
     <div className="App">
-      <DiaryEditor/>
-      <DiaryList diaryList={dummyList} />
+      <DiaryEditor onCreate = {onCreate} />
+      <DiaryList diaryList={data} />
     </div>
   );
 }

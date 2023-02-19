@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-const DiaryEditor = () =>{
+const DiaryEditor = ({onCreate}) =>{
     const authorInput = useRef();
     const contentInput = useRef();
     const [state, setState] = useState({ // setState들을 하나로 묶는다
@@ -25,8 +25,13 @@ const DiaryEditor = () =>{
             contentInput.current.focus(); //focus
             return;
         }
-        console.log(state);
+        onCreate(state.author, state.content , state.emotion);
         alert("저장성공");
+        setState({ //저장 후 데이터 모두 삭제.
+            author: "",
+            content: "",
+            emotion: 1,
+        });
     }
 
     return (
