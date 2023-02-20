@@ -15,6 +15,10 @@ const LifeCycle = () => {
 
     useEffect(() =>{
         console.log(`count is update : ${count}`)
+        if(count > 5){
+            alert("count가 5를 넘었습니다. 따라서 1로 초기화합니다!");
+            setCount(1);
+        }
     } ,[count] )// 두번째 인자에 있는 배열에 인지하고 싶은 인자만 배열에 넣어버 리턴하자.
 
     useEffect(() =>{
