@@ -1,7 +1,7 @@
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 
 //https://jsonplaceholder.typicode.com/comments
@@ -59,7 +59,8 @@ useEffect(() =>{
     );
 }
 
-const getDiaryAnalysis = () =>{
+const getDiaryAnalysis = useMemo(
+  () =>{
   console.log("일기 분석 시작");
 
   const goodCount = data.filter((it) => it.emotion >= 3).length;
@@ -67,11 +68,12 @@ const getDiaryAnalysis = () =>{
   const goodRatio = ( goodCount / badCount ) * 100;
 
   return {goodCount,badCount,goodRatio};
-}
+} , [data.length] // length가 바뀔대 재실행 된다.
+);// useMemo를 사용하는 순간 함수가 아니라 콜백을 받아서 메기는 값이다.
 
 //State바뀔때마다 리렌더되면서 함수 재호출
 // 하지만 이 수치는 매번 리렌더 할 필요 없다. 그러므로 useMemo()를 사용하자.
-const  {goodCount,badCount,goodRatio} = getDiaryAnalysis();
+const  {goodCount,badCount,goodRatio} = getDiaryAnalysis;
 
   return (
     <div className="App">
