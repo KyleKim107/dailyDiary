@@ -26,7 +26,8 @@ function App() {
     });
     setData(initData);
   };
-  
+
+
 useEffect(() =>{
   getData();
 } ,[])
@@ -58,9 +59,27 @@ useEffect(() =>{
     );
 }
 
+const getDiaryAnalysis = () =>{
+  console.log("일기 분석 시작");
+
+  const goodCount = data.filter((it) => it.emotion >= 3).length;
+  const badCount = data.length - goodCount;
+  const goodRatio = ( goodCount / badCount ) * 100;
+
+  return {goodCount,badCount,goodRatio};
+}
+
+//State바뀔때마다 리렌더되면서 함수 재호출
+// 하지만 이 수치는 매번 리렌더 할 필요 없다. 그러므로 useMemo()를 사용하자.
+const  {goodCount,badCount,goodRatio} = getDiaryAnalysis();
+
   return (
     <div className="App">
       <DiaryEditor onCreate = {onCreate} />
+      <div>전체 일기 : {data.length}</div>
+      <div>기분 좋은 일기 개수 : {goodCount}</div>
+      <div>기분 나쁜 일기 개수 : {badCount}</div>
+      <div>기분 좋은 일기 비율 : {goodRatio}</div>
       <DiaryList diaryList={data} onRemove = {onRemove} onEdit ={onEdit} />
     </div>
   );
