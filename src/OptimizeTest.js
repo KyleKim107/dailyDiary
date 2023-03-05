@@ -1,18 +1,18 @@
 import React,{ useState, useEffect } from "react";
 
 //State변경시 TextView와 CountView둘다 리렌더가 발생한다. 
-const TextView = ({text}) => {
+const TextView = React.memo(({text}) => {
     useEffect(()=>{
         console.log(`Update :: Text : ${text}`);
     })
     return <div>{text}</div>
-};
-const CountView = ({count}) => {
+});
+const CountView = React.memo(({count}) => {
     useEffect(()=>{
         console.log(`Update :: Count : ${count}`);
     })
     return <div>{count}</div>
-};
+});
 
 
 const OptimizeTest = () =>{
