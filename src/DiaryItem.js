@@ -1,6 +1,10 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const DiaryItem = ({id,author , content, created_date , emotion, onRemove, onEdit}) =>{
+
+    useEffect(() => {
+        console.log(`${id}번째 아이템 렌더!`)
+    })
 
     const localContentInput = useRef()
     const [isEdit , setIsEdit] = useState(false);// 수정중인지 아닌지 체크하기 위해서
@@ -58,6 +62,6 @@ const DiaryItem = ({id,author , content, created_date , emotion, onRemove, onEdi
     </div>);
 }
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
 
 
