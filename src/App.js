@@ -1,14 +1,35 @@
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
-import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+import { useReducer, useRef, useEffect, useMemo, useCallback } from 'react';
+// state 상태변화 직전의 데이터 
+// action: 상태변화를 일으킬 조건.
+const reducer = (state, action) =>{
+  switch(action.type){
+    case 'INIT':{
+      return action.data // action객체에서 데이터를 가져오면 새로운 state가 된다.
+    }
+    case 'CREATE':{
+      const created_date = new DataTransfer().getTime();
+      const newItem ={
+        ...action.data
+        ,created_date
+      }
+      return [newItem , ...state]
+    }
+    case 'REMOVE':{
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    case 'EDIT':
+      return state.map((it) => it.id === action.targetId? {...it , content: action.newContent} : it ); //변경된 DairyItem값만 변경됨,
+    default:
 
-
-//https://jsonplaceholder.typicode.com/comments
-
+  }
+}
 
 function App() {
-  const [data , setData] = useState([]);
+  // const [data , setData] = useState([]);
+  const [data , dispatch] = useReducer(reducer, []);
   const dataId = useRef(0); // 0번 인덱스 부 시작한다.
   
   const getData = async() =>{
@@ -23,7 +44,7 @@ function App() {
         id : dataId.current++,
       }
     });
-    setData(initData);
+    dispatch({type:"INIT" , data:initData})
   };
 
 
@@ -33,32 +54,23 @@ useEffect(() =>{
 
   const onCreate = useCallback(
     (author, content, emotion) => {
+      dispatch({type:'CREATE', data:{author,content,emotion,id: dataId.current }})
     const created_date = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      created_date,
-      id: dataId.current,
-    };
-
     dataId.current += 1;
-    setData((data) => [newItem , ...data]); // 만약 추가한걸 가장 위에 두고 싶은 경우
     // setData([ ...data , newItem ]); 만약 추가한걸 가장 밑에 두고 싶은 경우
   },[]
   );
 
   const onRemove = useCallback(({targetId}) => {
     console.log(`${targetId}가 삭제되었습니다.`);
-    setData((data) => data.filter((it) => it.id !== targetId));
+    dispatch({type:'REMOVE', targetId  })
+    // setData((data) => data.filter((it) => it.id !== targetId));
   },
   []
   );
 
   const onEdit = useCallback((targetId , newContent) =>{
-    setData( (data) =>
-      data.map((it) => it.id === targetId ? {...it , content:newContent} : it )
-    );
+    dispatch({type:'EDIT' , targetId ,newContent })
 },
 []
 )
