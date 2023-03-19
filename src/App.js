@@ -10,7 +10,7 @@ const reducer = (state, action) =>{
       return action.data // action객체에서 데이터를 가져오면 새로운 state가 된다.
     }
     case 'CREATE':{
-      const created_date = new DataTransfer().getTime();
+      const created_date = new Date().getTime();
       const newItem ={
         ...action.data
         ,created_date
@@ -44,7 +44,7 @@ function App() {
         id : dataId.current++,
       }
     });
-    dispatch({type:"INIT" , data:initData})
+    dispatch({type:"INIT" , data: initData})
   };
 
 
@@ -54,8 +54,9 @@ useEffect(() =>{
 
   const onCreate = useCallback(
     (author, content, emotion) => {
-      dispatch({type:'CREATE', data:{author,content,emotion,id: dataId.current }})
-    const created_date = new Date().getTime();
+      dispatch({
+        type:'CREATE',
+         data:{author ,content ,emotion , id: dataId.current }})
     dataId.current += 1;
     // setData([ ...data , newItem ]); 만약 추가한걸 가장 밑에 두고 싶은 경우
   },[]
@@ -63,14 +64,21 @@ useEffect(() =>{
 
   const onRemove = useCallback(({targetId}) => {
     console.log(`${targetId}가 삭제되었습니다.`);
-    dispatch({type:'REMOVE', targetId  })
+    dispatch({
+      type:'REMOVE'
+      ,targetId  
+    })
     // setData((data) => data.filter((it) => it.id !== targetId));
   },
   []
   );
 
   const onEdit = useCallback((targetId , newContent) =>{
-    dispatch({type:'EDIT' , targetId ,newContent })
+    dispatch({
+      type:'EDIT'
+      ,targetId
+      ,newContent 
+    })
 },
 []
 )
@@ -85,7 +93,7 @@ const getDiaryAnalysis = useMemo(() => {
   const badCount = data.length - goodCount;
   const goodRatio = (goodCount / data.length) * 100.0;
   return { goodCount, badCount, goodRatio };
-}, [data.length]); // length가 바뀔대 재실행 된다.
+}, [data]); // length가 바뀔대 재실행 된다.
  // useMemo를 사용하는 순간 함수가 아니라 콜백을 받아서 메기는 값이다.
 
 //State바뀔때마다 리렌더되면서 함수 재호출
