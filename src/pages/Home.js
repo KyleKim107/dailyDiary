@@ -47,7 +47,7 @@ const Home = () =>{
 
     return(
         <div>
-            <MyHeader headText={headText}  
+            <MyHeader headText={headText}
             leftChild={<MyButton text={"<"} onclick={decreaseMonth} />}
             rightChild={<MyButton text={">"} onclick={increaseMonth} />}
             />
