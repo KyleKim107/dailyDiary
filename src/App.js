@@ -43,11 +43,11 @@ export const DiaryDispatchContext = React.createContext();
 
 const dummyData = [
   {id: 1,
-  emotion: 1,
+  emotion: 5,
   content: "오늘의 일기 1번",
   date : 1681738171000},
   {id: 2,
-  emotion: 2,
+  emotion: 4,
   content: "오늘의 일기 2번",
   date : 1681738171100},
   {id: 3,
@@ -110,10 +110,10 @@ function App() {
         <BrowserRouter>
           <div className="App">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/new" element={<New />} />
-              <Route path="/diary/:id" element={<Diary />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/" element={<Home/>} />
+              <Route path="/new" element={<New/>} />
+              <Route path="/diary/:id" element={<Diary/>} />
+              <Route path="/edit/:id" element={<Edit/>} />
             </Routes>
           </div>
         </BrowserRouter>
