@@ -2,8 +2,8 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import Home from './pages/Home';
-import Edit from './pages/Edit';
-import New from './pages/New';
+import Edit from './pages/Edit.js';
+import New from './pages/New.js';
 import Diary from './pages/Diary';
 import MyButton from './components/MyButton';
 import MyHeader from './components/MyHeader';

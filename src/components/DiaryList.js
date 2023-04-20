@@ -82,7 +82,7 @@ const DiaryList = ({diaryList}) =>{
                         />
                 </div>
                 <div className="right_col">
-                    <MyButton type={'positive'} text={'새 일기 쓰기'} onclick={()=>navigate()}  />
+                    <MyButton type={'positive'} text={'새 일기 쓰기'} onclick={()=>navigate("/new")}  />
                 </div>
             </div>
             {getProcessedDiaryList().map((it) => (
