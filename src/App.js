@@ -95,7 +95,6 @@ function App() {
         content,
         emotion,
       }
-
     })
   };
   return (
@@ -121,6 +120,4 @@ function App() {
     </Diarystatecontext.Provider>
   );
 }
-
-
 export default App;

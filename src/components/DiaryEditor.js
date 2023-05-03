@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
@@ -41,28 +41,41 @@ const getStringDate = (date) =>{
     return date.toISOString().slice(0,10);
   }
 
-const DiaryEditor = () => {
+const DiaryEditor = ({isEdit, originData}) => {
     const naviagte = useNavigate();
     const contentRef = useRef()
     const [content, setContent] = useState("");
     const [date, setDate] = useState(getStringDate(new Date()));
     const [emotion, setEmotion] = useState(3);
-    const {onCreate} = useContext(DiaryDispatchContext);
+    const {onCreate, onEdit} = useContext(DiaryDispatchContext);
     const handleSubmit = () =>{
         if(content.length < 1){
             contentRef.current.focus();
             return;
         }
-        onCreate(date,content,emotion);
+        if(window.confirm(isEdit? "일기를 수정 하시겠습니까": "새 일기를 작성 하시겠습니까?")){
+            if(!isEdit){
+                onCreate(date,content,emotion);
+            }else{
+                onEdit(originData.id,date,content,emotion)
+            }
+        }
         naviagte("/", {replace:true})
     }
     const handleClickEmottion = (emotion) =>{
         setEmotion(emotion);
     };
+    useEffect(()=>{
+        if(isEdit){
+            setDate(getStringDate(new Date(parseInt(originData.date))));
+            setEmotion(originData.emotion);
+            setContent(originData.content);
+        }
+    }, [isEdit, originData]) // dependency를 추가 안해주면 화면이 움직이지 않는다...
     return (
         <div className="DiaryEditor">
           <MyHeader 
-          headText={"새 일기쓰기"}
+          headText={isEdit ? "일기 수정하기" :"새 일기쓰기"}
           leftChild={<MyButton text={"< 뒤로가기"} onclick={() => naviagte(-1)} />}
            />
            <div>
