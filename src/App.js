@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Edit from './pages/Edit.js';
 import New from './pages/New.js';
 import Diary from './pages/Diary';
-import React, { useReducer, useRef } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 
 const reducer =  ( state, action ) =>{
   let newState = [];
@@ -63,6 +63,16 @@ const dummyData = [
   ]
 
 function App() {
+  useEffect(() =>{
+    localStorage.setItem("key1", 10);
+    localStorage.setItem("key2", "20");
+    localStorage.setItem("key3", JSON.stringify({value:30}));
+    const item1 = localStorage.getItem('key1');
+    const item2 = localStorage.getItem('key2');
+    const item3 = localStorage.getItem('key3');
+    console.log({item1, item2, item3});
+  }, [])
+
   const [data, dispatch] = useReducer(reducer, dummyData);
   const dataId = useRef(6);
 
