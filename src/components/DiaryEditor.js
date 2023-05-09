@@ -15,13 +15,13 @@ const getStringDate = (date) =>{
     return date.toISOString().slice(0,10);
   }
 
-const DiaryEditor = ({isEdit, originData}) => {
-    const naviagte = useNavigate();
+const DiaryEditor = ({isEdit, originData, }) => {
+    const navigate = useNavigate();
     const contentRef = useRef()
     const [content, setContent] = useState("");
     const [date, setDate] = useState(getStringDate(new Date()));
     const [emotion, setEmotion] = useState(3);
-    const {onCreate, onEdit} = useContext(DiaryDispatchContext);
+    const {onCreate, onEdit, onRemove} = useContext(DiaryDispatchContext);
     const handleSubmit = () =>{
         if(content.length < 1){
             contentRef.current.focus();
@@ -34,7 +34,13 @@ const DiaryEditor = ({isEdit, originData}) => {
                 onEdit(originData.id,date,content,emotion)
             }
         }
-        naviagte("/", {replace:true})
+        navigate("/", {replace:true})
+    }
+    const handleRemove = () =>{
+        if(window.confirm("정말 삭제하시겠습니까?")){
+            onRemove(originData.id);
+            navigate('/', {replace:true})
+        }
     }
     const handleClickEmottion = (emotion) =>{
         setEmotion(emotion);
@@ -50,7 +56,8 @@ const DiaryEditor = ({isEdit, originData}) => {
         <div className="DiaryEditor">
           <MyHeader 
           headText={isEdit ? "일기 수정하기" :"새 일기쓰기"}
-          leftChild={<MyButton text={"< 뒤로가기"} onclick={() => naviagte(-1)} />}
+          leftChild={<MyButton text={"< 뒤로가기"} onclick={() => navigate(-1)} />}
+          rightChild={ isEdit && (<MyButton text={"삭제하기"} type={"negative"} onclick={handleRemove} />) }
            />
            <div>
               <section>
@@ -89,7 +96,7 @@ const DiaryEditor = ({isEdit, originData}) => {
               </section>
               <section>
                 <div className="control_box">
-                    <MyButton text={"취소하기"} onclick={() => naviagte(-1)}/>
+                    <MyButton text={"취소하기"} onclick={() => navigate(-1)}/>
                     <MyButton text={"작성완료"} type={"positive"} onclick={handleSubmit}/>
                 </div>
               </section>

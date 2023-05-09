@@ -33,6 +33,7 @@ const reducer =  ( state, action ) =>{
     default:
       return state;
   }
+  localStorage.setItem("diary" , JSON.stringify(newState) );
   return newState
 }
 
@@ -40,41 +41,44 @@ export const Diarystatecontext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
 const dummyData = [
-  {id: 1,
-  emotion: 5,
-  content: "오늘의 일기 1번",
-  date : 1681738171000},
-  {id: 2,
-  emotion: 4,
-  content: "오늘의 일기 2번",
-  date : 1681738171100},
-  {id: 3,
-  emotion: 2,
-  content: "오늘의 일기 3번",
-  date : 1681738171200},
-  {id: 4,
-  emotion: 1,
-  content: "오늘의 일기 4번",
-  date : 1681738171300},
-  {id: 5,
-  emotion: 2,
-  content: "오늘의 일기 5번",
-  date : 1681738171400}
-  ]
+  // {id: 1,
+  // emotion: 5,
+  // content: "오늘의 일기 1번",
+  // date : 1681738171000},
+  // {id: 2,
+  // emotion: 4,
+  // content: "오늘의 일기 2번",
+  // date : 1681738171100},
+  // {id: 3,
+  // emotion: 2,
+  // content: "오늘의 일기 3번",
+  // date : 1681738171200},
+  // {id: 4,
+  // emotion: 1,
+  // content: "오늘의 일기 4번",
+  // date : 1681738171300},
+  // {id: 5,
+  // emotion: 2,
+  // content: "오늘의 일기 5번",
+  // date : 1681738171400}
+  ];
 
 function App() {
-  useEffect(() =>{
-    localStorage.setItem("key1", 10);
-    localStorage.setItem("key2", "20");
-    localStorage.setItem("key3", JSON.stringify({value:30}));
-    const item1 = localStorage.getItem('key1');
-    const item2 = localStorage.getItem('key2');
-    const item3 = localStorage.getItem('key3');
-    console.log({item1, item2, item3});
-  }, [])
 
   const [data, dispatch] = useReducer(reducer, dummyData);
-  const dataId = useRef(6);
+  const dataId = useRef(0);
+
+  useEffect(()=>{
+    const localData = localStorage.getItem('diary')
+    if(localData){
+      const diaryList = JSON.parse(localData).sort((a,b)=> parseInt(b.id) - parseInt(a.id));
+      dataId.current = parseInt(diaryList[0].id) + 1;
+      console.log(diaryList);
+      console.log(dataId);
+
+      dispatch({type:"INIT" , data:diaryList});
+    }
+  }, [])
 
   // CREATE
   const onCreate = (date, content, emotion) => {
