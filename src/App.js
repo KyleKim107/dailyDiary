@@ -5,8 +5,6 @@ import Home from './pages/Home';
 import Edit from './pages/Edit.js';
 import New from './pages/New.js';
 import Diary from './pages/Diary';
-import MyButton from './components/MyButton';
-import MyHeader from './components/MyHeader';
 import React, { useReducer, useRef } from 'react';
 
 const reducer =  ( state, action ) =>{
@@ -66,7 +64,7 @@ const dummyData = [
 
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
-  const dataId = useRef(0);
+  const dataId = useRef(6);
 
   // CREATE
   const onCreate = (date, content, emotion) => {

@@ -12,17 +12,23 @@ const Home = () =>{
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
     useEffect(()=>{
-        const firstDay = new Date(curDate.getFullYear(),
-        curDate.getMonth(),
-        1 ).getTime();
-        console.log(new Date(firstDay));
-
+        if(diaryList.length >= 1){
+            const firstDay = new Date(
+                curDate.getFullYear(),
+                curDate.getMonth(),
+                1
+            ).getTime();
+                
         const lastDay = new Date(
             curDate.getFullYear(),
-            curDate.getMonth(),
-            0
-        );
-
+            curDate.getMonth() + 1,
+            0,
+            23, // 시
+            59 // 분
+            ,59 // 초
+            );
+                    
+        }
         // setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay));
         setData(diaryList);
 
