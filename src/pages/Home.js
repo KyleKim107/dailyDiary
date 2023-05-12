@@ -28,9 +28,9 @@ const Home = () =>{
             ,59 // 초
             );
                     
+            setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay));
         }
-        // setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay));
-        setData(diaryList);
+        // setData(diaryList);
 
     }, [diaryList,curDate]);
 
@@ -42,7 +42,7 @@ const Home = () =>{
     const increaseMonth = () =>{
     setCurDate(
         new Date(curDate.getFullYear(), curDate.getMonth() + 1 , curDate.getDate())
-        ); 
+        ); // 날짜를 바꾸면 home컴포넌트 자체에서 변화가 일어난다.
     };
     const decreaseMonth = () =>{
     setCurDate(
@@ -52,9 +52,10 @@ const Home = () =>{
 
     return(
         <div>
-            <MyHeader headText={headText}
-            leftChild={<MyButton text={"<"} onclick={decreaseMonth} />}
-            rightChild={<MyButton text={">"} onclick={increaseMonth} />}
+            <MyHeader 
+                headText={headText}
+                leftChild={<MyButton text={"<"} onclick={decreaseMonth} />}
+                rightChild={<MyButton text={">"} onclick={increaseMonth} />}
             />
             <DiaryList diaryList={data} />
         </div>

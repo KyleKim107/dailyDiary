@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
@@ -42,9 +42,9 @@ const DiaryEditor = ({isEdit, originData, }) => {
             navigate('/', {replace:true})
         }
     }
-    const handleClickEmottion = (emotion) =>{
+    const handleClickEmotion = useCallback((emotion) =>{
         setEmotion(emotion);
-    };
+    },[]);
     useEffect(()=>{
         if(isEdit){
             setDate(getStringDate(new Date(parseInt(originData.date))));
@@ -77,7 +77,7 @@ const DiaryEditor = ({isEdit, originData, }) => {
                         <EmotionItem 
                             key={it.emotion_id} 
                             {...it} 
-                            onclick={handleClickEmottion}
+                            onclick={handleClickEmotion}
                             isSelected={it.emotion_id === emotion}
                         />
                     ))}
