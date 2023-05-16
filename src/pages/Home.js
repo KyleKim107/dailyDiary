@@ -12,13 +12,18 @@ const Home = () =>{
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
     useEffect(()=>{
+        const titleElement = document.getElementsByTagName('title')[0]; // 0번째가 타이틀
+        titleElement.innerHTML = `감정 일기장`;
+      },[]);
+
+    useEffect(()=>{
         if(diaryList.length >= 1){
             const firstDay = new Date(
                 curDate.getFullYear(),
                 curDate.getMonth(),
                 1
             ).getTime();
-                
+
         const lastDay = new Date(
             curDate.getFullYear(),
             curDate.getMonth() + 1,
@@ -27,7 +32,7 @@ const Home = () =>{
             59 // 분
             ,59 // 초
             );
-                    
+
             setData(diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay));
         }
         // setData(diaryList);
