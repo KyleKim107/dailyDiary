@@ -34,7 +34,7 @@ const Diary = () => {
   },[id,diaryList]);
   
   if(!data){
-    return <div className="DiaryPage">로딩중입니다.....</div>;
+    return <div className="DiaryPage">Loading.....</div>;
   }else{
     const currEmotionData = emotionList.find(
         (it) => parseInt(it.emotion_id) === parseInt(data.emotion)
@@ -43,17 +43,17 @@ const Diary = () => {
 
     return (
       <div className="DiaryPage">
-        <MyHeader headText={`${getStringDate(new Date(data.date))} 기록`} 
+        <MyHeader headText={`${getStringDate(new Date(data.date))} Record`} 
         leftChild={
-          <MyButton text={"< 뒤로가기"} onclick={() => navigate(-1)} />
+          <MyButton text={"< Go Back"} onclick={() => navigate(-1)} />
         }
         rightChild={
-          <MyButton text={"수정"} onclick={() => navigate(`/edit/${data.id}`)} />
+          <MyButton text={"Edit"} onclick={() => navigate(`/edit/${data.id}`)} />
         }
         />
       <article>
         <section>
-          <h4>오늘의 감정</h4>
+          <h4>Today's Mood</h4>
           <div className={["diary_img_wrapper", `diary_img_wrapper_${currEmotionData.emotion_id}`].join(" ")}>
             <img src={currEmotionData.emotion_img} />
             <div className="emotion_descript">
@@ -65,7 +65,7 @@ const Diary = () => {
           </div>
         </section>
         <section>
-          <h4>오늘의 일기</h4>
+          <h4>Today's Diary</h4>
           <div className="diary_content_wrapper">
             <p>{data.content}</p>
           </div>

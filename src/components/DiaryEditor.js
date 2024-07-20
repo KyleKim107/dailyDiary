@@ -27,7 +27,7 @@ const DiaryEditor = ({isEdit, originData, }) => {
             contentRef.current.focus();
             return;
         }
-        if(window.confirm(isEdit? "일기를 수정 하시겠습니까": "새 일기를 작성 하시겠습니까?")){
+        if(window.confirm(isEdit? "Do You Want to Edit the Entry": "Do You Want to Write a New One?")){
             if(!isEdit){
                 onCreate(date,content,emotion);
             }else{
@@ -37,7 +37,7 @@ const DiaryEditor = ({isEdit, originData, }) => {
         navigate("/", {replace:true})
     }
     const handleRemove = () =>{
-        if(window.confirm("정말 삭제하시겠습니까?")){
+        if(window.confirm("Are You Sure You Want to Delete?")){
             onRemove(originData.id);
             navigate('/', {replace:true})
         }
@@ -55,13 +55,13 @@ const DiaryEditor = ({isEdit, originData, }) => {
     return (
         <div className="DiaryEditor">
           <MyHeader 
-          headText={isEdit ? "일기 수정하기" :"새 일기쓰기"}
-          leftChild={<MyButton text={"< 뒤로가기"} onclick={() => navigate(-1)} />}
-          rightChild={ isEdit && (<MyButton text={"삭제하기"} type={"negative"} onclick={handleRemove} />) }
+          headText={isEdit ? "Edit Diary" :"New Diary"}
+          leftChild={<MyButton text={"< Go Back"} onclick={() => navigate(-1)} />}
+          rightChild={ isEdit && (<MyButton text={"Delete"} type={"negative"} onclick={handleRemove} />) }
            />
            <div>
               <section>
-                <h4>오늘은 언제인가요?</h4>
+                <h4>What's the Date Today?</h4>
                 <div className="input-box">
                   <input 
                     className="input_date"
@@ -71,7 +71,7 @@ const DiaryEditor = ({isEdit, originData, }) => {
                 </div>
               </section>
               <section>
-                <h4>오늘의 감정</h4>
+                <h4>Today's Mood</h4>
                 <div className="input_box emotion_list_wrapper">
                     {emotionList.map((it) =>(
                         <EmotionItem 
@@ -84,11 +84,11 @@ const DiaryEditor = ({isEdit, originData, }) => {
                 </div>
               </section>
               <section>
-                <h4>오늘의 일기</h4>
+                <h4>Today's Diary</h4>
                 <div className="input_box text_wrapper">
                         <textarea 
                         ref={contentRef}
-                        placeholder="오늘은 어땠나요?"
+                        placeholder="How Was Your Day?"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}>
                         </textarea>
@@ -96,8 +96,8 @@ const DiaryEditor = ({isEdit, originData, }) => {
               </section>
               <section>
                 <div className="control_box">
-                    <MyButton text={"취소하기"} onclick={() => navigate(-1)}/>
-                    <MyButton text={"작성완료"} type={"positive"} onclick={handleSubmit}/>
+                    <MyButton text={"Cancel and Go Back"} onclick={() => navigate(-1)}/>
+                    <MyButton text={"Done"} type={"positive"} onclick={handleSubmit}/>
                 </div>
               </section>
            </div>
