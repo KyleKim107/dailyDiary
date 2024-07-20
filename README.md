@@ -29,7 +29,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-# 감정 일기장 React App
+# Diary React App
 
 ### 메인 페이지
 #### 1. 사용자는 상단 좌/우에 있는 화살표로 달을 선택할 수 있습니다.

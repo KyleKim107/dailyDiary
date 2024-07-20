@@ -6,18 +6,18 @@ import MyButton from "./MyButton";
 const sortOptionList = [
     {
         value:"latest",
-        name:"최신순"
+        name:"Latest"
     },
     {
         value:"oldest",
-        name:"오래된 순"
+        name:"Oldest"
     },
 ];
 
 const filterOptionList = [
-    { value: "all", name: "전부다" },
-    { value: "good", name: "좋은 감정만" },
-    { value: "bad", name: "안좋은 감정만" },
+    { value: "all", name: "Show all" },
+    { value: "good", name: "Only Good Days" },
+    { value: "bad", name: "Only Bad Days" },
   ];
   
 
@@ -84,7 +84,7 @@ const DiaryList = ({diaryList}) =>{
                         />
                 </div>
                 <div className="right_col">
-                    <MyButton type={'positive'} text={'새 일기 쓰기'} onclick={()=>navigate("/new")}  />
+                    <MyButton type={'positive'} text={'Create New Dairy'} onclick={()=>navigate("/new")}  />
                 </div>
             </div>
             {getProcessedDiaryList().map((it) => (
