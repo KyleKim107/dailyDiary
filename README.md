@@ -47,7 +47,8 @@ Open [http://localhost:3001](http://localhost:3000) to view it in your browser.
             setEmotion(originData.emotion);
             setContent(originData.content);
             }
-        }, [isEdit, originData]); // Dependencies: runs effect when isEdit or originData changes
+        }, [isEdit, originData]); 
+        // Dependencies: runs effect when isEdit or originData changes
         ```
     * useContext: Provides a way to pass data through the component tree without manually passing props down at every level.
         ```
