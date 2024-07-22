@@ -39,6 +39,7 @@ Open [http://localhost:3001](http://localhost:3000) to view it in your browser.
         ```
     * useEffect: Lets you perform side effects in functional components, such as data fetching, subscriptions, or manually changing the DOM. useEffect serves a similar purpose to lifecycle methods like componentDidMount.
         ```
+        ```
         // useEffect to initialize the form fields when in edit mode
         useEffect(() => {
             if (isEdit) {
