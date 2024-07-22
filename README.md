@@ -8,6 +8,17 @@
 * React(+Hook)
 * JavaScript
 
+## How to start
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3001](http://localhost:3000) to view it in your browser.
+
+
+
 # Learning 
 - [Note]
 * ## React Hooks
@@ -29,14 +40,15 @@
     * useEffect: Lets you perform side effects in functional components, such as data fetching, subscriptions, or manually changing the DOM. useEffect serves a similar purpose to lifecycle methods like componentDidMount.
         ```
         // useEffect to initialize the form fields when in edit mode
-  useEffect(() => {
-    if (isEdit) {
-      setDate(getStringDate(new Date(parseInt(originData.date))));
-      setEmotion(originData.emotion);
-      setContent(originData.content);
-    }
-  }, [isEdit, originData]); // Dependencies: runs effect when isEdit or originData changes
-    
+        useEffect(() => {
+            if (isEdit) {
+            setDate(getStringDate(new Date(parseInt(originData.date))));
+            setEmotion(originData.emotion);
+            setContent(originData.content);
+            }
+        }, [isEdit, originData]); 
+        // Dependencies: runs effect when isEdit or originData changes
+        ```
     * useContext: Provides a way to pass data through the component tree without manually passing props down at every level.
         ```
           const diaryList = useContext(Diarystatecontext);
@@ -75,18 +87,6 @@
             dispatch({type:"INIT" , data:diaryList});
 
         ```
-
-
-## How to start
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3001](http://localhost:3000) to view it in your browser.
-
-
 # Features
 
 * ## Main Page
